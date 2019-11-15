@@ -52,6 +52,7 @@ def alarm(hour, minute, am_pm):
                 while alarm_time > time.time():
                     time.sleep(0.1)
                 print('Alarm')
+                print('Playing: {}'.format(chosen_sound))
                 playsound('C:\\AlarmClock\\alarm_sounds\\{}'.format(chosen_sound))
                 
             else:
