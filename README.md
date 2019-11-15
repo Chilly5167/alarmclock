@@ -1,4 +1,4 @@
-# MSPaintFlagBot
+# Alarm Clock
 ## Command line alarm clock that plays a random song each time it is run
 
 ## Usage Example
