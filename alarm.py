@@ -1,9 +1,10 @@
 #! python3
-# command line alarm clock without the display
+# command line alarm clock
 # Plays a random song each time
 # Press CTRL-C to exit
 # It continues setting it for the initital time each day until
 # it is exited.
+# windows version
 
 import sys, time, random, os, subprocess
 
@@ -56,6 +57,9 @@ def alarm(hour, minute, am_pm):
                 print('Playing: {}'.format(chosen_sound))
                 play = subprocess.Popen(['C:\\Program Files (x86)\\VideoLAN\\VLC\\vlc.exe',
                                          'C:\\AlarmClock\\alarm_sounds\\{}'.format(chosen_sound)])
+
+                # If you press CTRL-c during the music playback it exits the music and sets your alarm
+                # for the next day at the same time
                 try:
                     while True:
                         pass
@@ -83,6 +87,7 @@ if len(sys.argv) != 3:
 hour, minute = sys.argv[1].split(':')
 am_pm = sys.argv[2]
 
+# continually sets a new alarm until you CTRL-c
 try:
     while True:
         alarm(hour, minute, am_pm)
