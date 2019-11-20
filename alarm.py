@@ -2,9 +2,10 @@
 # command line alarm clock without the display
 # Plays a random song each time
 # Press CTRL-C to exit
+# It continues setting it for the initital time each day until
+# it is exited.
 
-import sys, time, random, os
-from playsound import playsound
+import sys, time, random, os, subprocess
 
 
 
@@ -50,11 +51,19 @@ def alarm(hour, minute, am_pm):
                 # sleeps in small interval to allow for keyboard interupt
                 # updates the countdown each loop
                 while alarm_time > time.time():
-                    time.sleep(0.1)
+                    time.sleep(1)
                 print('Alarm')
                 print('Playing: {}'.format(chosen_sound))
-                playsound('C:\\AlarmClock\\alarm_sounds\\{}'.format(chosen_sound))
-                
+                play = subprocess.Popen(['C:\\Program Files (x86)\\VideoLAN\\VLC\\vlc.exe',
+                                         'C:\\AlarmClock\\alarm_sounds\\{}'.format(chosen_sound)])
+                try:
+                    while True:
+                        pass
+                except KeyboardInterrupt:
+                    play.terminate()
+                    print('Stopping Music')
+                play.wait()
+                print('Music Stopped')
             else:
                 print('Invalid minute')
         else:
@@ -75,7 +84,9 @@ hour, minute = sys.argv[1].split(':')
 am_pm = sys.argv[2]
 
 try:
-    alarm(hour, minute, am_pm)
+    while True:
+        alarm(hour, minute, am_pm)
 except KeyboardInterrupt:
-    print('Exiting...')
+    print('Exiting Program')
     sys.exit()
+
